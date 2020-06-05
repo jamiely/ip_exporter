@@ -9,6 +9,7 @@ use prometheus::{TextEncoder, Encoder, IntGaugeVec};
 use pnet::datalink;
 use std::collections::{HashSet};
 use rocket::State;
+use rocket::response::content::Html;
 
 lazy_static! {
     static ref IP_GAUGE: IntGaugeVec = register_int_gauge_vec!(
@@ -45,6 +46,11 @@ fn metrics(settings: State<Settings>) -> String {
     String::from_utf8(buffer).unwrap()
 }
 
+#[get("/")]
+fn index() -> Html<&'static str> {
+    Html(r"<html><a href='/metrics'>metrics here.</a></html>")
+}
+
 fn main() {
     let mut check_ips = HashSet::new();
     let ip_list = env::var("IP_LIST").unwrap_or("127.0.0.1".to_owned());
@@ -54,5 +60,5 @@ fn main() {
 
     rocket::ignite()
         .manage(Settings { ips: check_ips })
-        .mount("/", routes![metrics]).launch();
+        .mount("/", routes![index, metrics]).launch();
 }
