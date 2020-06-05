@@ -2,8 +2,8 @@ FROM rustlang/rust:nightly AS build
 WORKDIR /usr/src
 RUN rustup target add x86_64-unknown-linux-musl
 
-RUN USER=root cargo new ip-monitor-prometheus
-WORKDIR /usr/src/ip-monitor-prometheus
+RUN USER=root cargo new ip_exporter
+WORKDIR /usr/src/ip_exporter
 COPY Cargo.toml Cargo.lock ./
 RUN cargo build --release
 
@@ -17,8 +17,8 @@ ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-stati
 RUN chmod +x /tini
 
 FROM scratch
-COPY --from=build /usr/local/cargo/bin/ip-monitor-prometheus .
+COPY --from=build /usr/local/cargo/bin/ip_exporter .
 COPY --from=build /tini /tini
 USER 1000
-CMD ["./ip-monitor-prometheus"]  
+CMD ["./ip_exporter"]  
 ENTRYPOINT ["/tini", "--"]

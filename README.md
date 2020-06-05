@@ -24,7 +24,7 @@ A Docker image is available.
 
 ```bash
 docker run -e IP_LIST="127.0.0.1 192.168.0.3 192.168.0.2" \
-  -p 8000:8000 jamiely/ip-monitor-prometheus
+  -p 8000:8000 jamiely/ip_exporter
 ```
 
 Example Response
@@ -32,7 +32,7 @@ Example Response
 
 ```
 % docker run -e IP_LIST="127.0.0.1 192.168.0.3 192.168.0.2" \
-  -p 8000:8000 jamiely/ip-monitor-prometheus
+  -p 8000:8000 jamiely/ip_exporter
 % curl localhost:8000/metrics
 
 # HELP ip_is_bound Whether or not the IP is bound. 1 is the IP is bound and 0 if not.

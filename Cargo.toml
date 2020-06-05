@@ -1,5 +1,5 @@
 [package]
-name = "ip-monitor-prometheus"
+name = "ip_exporter"
 version = "0.1.0"
 authors = ["Jamie Ly <jly@ecri.org>"]
 edition = "2018"

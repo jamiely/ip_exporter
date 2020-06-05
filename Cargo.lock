@@ -352,7 +352,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "ip-monitor-prometheus"
+name = "ip_exporter"
 version = "0.1.0"
 dependencies = [
  "lazy_static",
